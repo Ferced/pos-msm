@@ -745,7 +745,7 @@ nombreglobal3=""
 configPOS = configparser.ConfigParser()
 configPOS.sections()
 print os.path.dirname(os.path.abspath(__file__))+r'/configPOS.ini'
-configPOS.read(os.path.dirname(os.path.abspath(__file__))+r'\configPOS.ini')
+configPOS.read(os.path.dirname(os.path.abspath(__file__))+r'/configPOS.ini')
 usuarioL=configPOS['Superintendencia']['Usuario']
 contraL=configPOS['Superintendencia']['Contra']
 browser=Browser()
