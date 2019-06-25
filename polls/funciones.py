@@ -34,18 +34,18 @@ from openpyxl.chart import (
 from openpyxl.chart.series import DataPoint
 #Esta funcion te li
 def limpiarNombre(nombre):
-	acum=""
-	ordenamiento=0
-	for elemento in nombre:
-		ordenamiento=ord(elemento)
-		if ordenamiento >=65 and ordenamiento <=122 or ordenamiento==32:
-			acum+=elemento
-		else:
-			if ordenamiento == 209:
-				acum+="Ñ"
-			else:
-				acum+="-"
-	return acum
+    acum=""
+    ordenamiento=0
+    for elemento in nombre:
+        ordenamiento=ord(elemento)
+        if ordenamiento >=65 and ordenamiento <=122 or ordenamiento==32:
+            acum+=elemento
+        else:
+            if ordenamiento == 209:
+                acum+="Ñ"
+            else:
+                acum+="-"
+    return acum
 def chequearSPINespecial(documento):
     print "USANDO SPIN ESPECIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAL----------------------------"
     global bateria
@@ -114,7 +114,7 @@ def controlSPIN(documento):
             OSSI2=chequearSPIN(documento,response)
             return OSSI2
         except:
-        	#Si entro aca significa que el bot ya estaba logeado
+            #Si entro aca significa que el bot ya estaba logeado
             OSSI2=chequearSPINespecial(documento)
             return OSSI2
     except Exception as e:
@@ -173,46 +173,48 @@ def chequearSPIN(documento,response):
             cadenita=""
     return OSSI2
 def chequearIOMA2018(documento):
-	tiene=False
-	#ESTE FOR ESTA PARA ITERAR SOBRE LOS SEXOS (1,2) ESTO SE HACE POR QUE PARA CONSULTAR A IOMA HAY QUE ELEGIR EL SEXO
-	for item in range(1,3):
-		if chequearIOMA2018bis(documento,item) == True:
-			return True
-	return False
+    return False
+def chequearIOMA2018nofunciona(documento):
+    tiene=False
+    #ESTE FOR ESTA PARA ITERAR SOBRE LOS SEXOS (1,2) ESTO SE HACE POR QUE PARA CONSULTAR A IOMA HAY QUE ELEGIR EL SEXO
+    for item in range(1,3):
+        if chequearIOMA2018bis(documento,item) == True:
+            return True
+    return False
 def chequearIOMA2018bis(documento,sexo):
-	#HACE UNA REQUEST A LA PAGINA DE IOMA CON LOS HEADERS EN LA VARIABLE 'DATA' DE ABAJO
-	data = urllib.urlencode({'T3':documento,'sexo':sexo,'B13':'Buscar'})
-	url=configPOS['Ioma']['Url']
-	request = urllib2.Request(url,data)
-	respuesta = urllib2.urlopen(request).read()
-	counterIOMA=0
-	itworks=False
-	suma=0
-	cadenita = ""
-	ultima = ""
-	franco = False
-	encontro = False
-	#PARSEA LA RESPUESTA QUE SERIA UN HTML
-	for elemento in respuesta:
-		if encontro == True and elemento == "<":
-			counterIOMA+=1
-			if counterIOMA == 2:
-				nombreglobal3 = cadenita
-			ultima=cadenita
-			encontro=False
-			cadenita=""
-		if elemento == "<":
-			cadenita=""
-		cadenita+=elemento
-		if cadenita == '<span class="texto-azul">' or cadenita =='<span class="texto-azul-bold">' :
-			encontro=True
-			itworks = True
-		if elemento==">":
-			cadenita=""
-	if len(ultima)>2:
-		return True
-	else:
-		return False
+    #HACE UNA REQUEST A LA PAGINA DE IOMA CON LOS HEADERS EN LA VARIABLE 'DATA' DE ABAJO
+    data = urllib.urlencode({'T3':documento,'sexo':sexo,'B13':'Buscar'})
+    url=configPOS['Ioma']['Url']
+    request = urllib2.Request(url,data)
+    respuesta = urllib2.urlopen(request).read()
+    counterIOMA=0
+    itworks=False
+    suma=0
+    cadenita = ""
+    ultima = ""
+    franco = False
+    encontro = False
+    #PARSEA LA RESPUESTA QUE SERIA UN HTML
+    for elemento in respuesta:
+        if encontro == True and elemento == "<":
+            counterIOMA+=1
+            if counterIOMA == 2:
+                nombreglobal3 = cadenita
+            ultima=cadenita
+            encontro=False
+            cadenita=""
+        if elemento == "<":
+            cadenita=""
+        cadenita+=elemento
+        if cadenita == '<span class="texto-azul">' or cadenita =='<span class="texto-azul-bold">' :
+            encontro=True
+            itworks = True
+        if elemento==">":
+            cadenita=""
+    if len(ultima)>2:
+        return True
+    else:
+        return False
 def limpiandingSTR(cadena):
     nombresito=""
     c=""
@@ -466,23 +468,23 @@ def nombreLigadoAlDocumento():
         return nombreglobal2
     return False
 def tieneOS(IOMA,PUCO,SPIN):
-	tiene=False
-	if IOMA != False and IOMA != "ERROR":
-		return True
-	if SPIN != "No se encontraron datos" and SPIN != "ERROR":
-		return True 
-	if PUCO != ["No se reportan datos"] and len(PUCO[0]) > 1:
-		return True
-	return tiene
+    tiene=False
+    if IOMA != False and IOMA != "ERROR":
+        return True
+    if SPIN != "No se encontraron datos" and SPIN != "ERROR":
+        return True 
+    if PUCO != ["No se reportan datos"] and len(PUCO[0]) > 1:
+        return True
+    return tiene
 def limpiarNombres():
-	global nombreglobalsumar
-	global nombreglobal
-	global nombreglobal2
-	global nombreglobal3
-	nombreglobalsumar=""
-	nombreglobal=""
-	nombreglobal2=""
-	nombreglobal3=""
+    global nombreglobalsumar
+    global nombreglobal
+    global nombreglobal2
+    global nombreglobal3
+    nombreglobalsumar=""
+    nombreglobal=""
+    nombreglobal2=""
+    nombreglobal3=""
 def escribirEnLaBD(documento,nombre,puco,ioma,spin):
    puco2=""
    nombre=nombre.strip("- ")
@@ -503,56 +505,56 @@ def sacarEstosElementos(cadena,lista):
         cadena=cadena.strip(elemento)
     return cadena
 def botPUCO2018lista(listaDoc,listaReal):
-	global intentoListaDoc
-	global nombreglobal
-	listaDocumentos=[]
-	listaObrasSociales=[]
-	listaNombres=[]
-	par=0
-	listaBan=[",",":"]
-	nombreglobal = ""
-	data = urllib.urlencode({'documento':listaDoc,'tabla':'PUCO_2018-12'})
-	try:
-		url = configPOS['Puco']['UrlPrincipal']
-		request = urllib2.Request(url,data)
-		respuesta = urllib2.urlopen(request).read()
-		regex = r"\{(.*?)\"}"
-		elDocumento=""
-		esElDoc=False
-		ultimo=""
-		elNombre=""
-		matches = re.finditer(regex, respuesta, re.MULTILINE | re.DOTALL)
-		for matchNum, match in enumerate(matches):
-			par=0
-			for groupNum in range(0, len(match.groups())):       
-				elmo=match.group(1)
-				esElDoc=False
-				for elemento in elmo.split('"'):
-					if elemento not in listaBan:
-						# print elemento
-						if par%2==0:
-							if par==4:
-								elDocumento=elemento
-							if par==6:
-								elNombre=elemento
+    global intentoListaDoc
+    global nombreglobal
+    listaDocumentos=[]
+    listaObrasSociales=[]
+    listaNombres=[]
+    par=0
+    listaBan=[",",":"]
+    nombreglobal = ""
+    data = urllib.urlencode({'documento':listaDoc,'tabla':'PUCO_2018-12'})
+    try:
+        url = configPOS['Puco']['UrlPrincipal']
+        request = urllib2.Request(url,data)
+        respuesta = urllib2.urlopen(request).read()
+        regex = r"\{(.*?)\"}"
+        elDocumento=""
+        esElDoc=False
+        ultimo=""
+        elNombre=""
+        matches = re.finditer(regex, respuesta, re.MULTILINE | re.DOTALL)
+        for matchNum, match in enumerate(matches):
+            par=0
+            for groupNum in range(0, len(match.groups())):       
+                elmo=match.group(1)
+                esElDoc=False
+                for elemento in elmo.split('"'):
+                    if elemento not in listaBan:
+                        # print elemento
+                        if par%2==0:
+                            if par==4:
+                                elDocumento=elemento
+                            if par==6:
+                                elNombre=elemento
                             # print "--------------------------------------------------------------"
-						ultimo=elemento
+                        ultimo=elemento
 
-						par+=1
+                        par+=1
                 # print "******************************************"
-				listaDocumentos.append(elDocumento)
-				listaNombres.append(elNombre)
-				listaObrasSociales.append(ultimo)
-		lezipeado=zip(listaDocumentos,listaNombres,listaObrasSociales)
-		return lezipeado
-	except Exception as e:
-		print e 
-		listaEr=["PAGINA NO DISPONIBLE"]
-		return listaEr
-	return listaDocumentos,listaNombres,listaObrasSociales
+                listaDocumentos.append(elDocumento)
+                listaNombres.append(elNombre)
+                listaObrasSociales.append(ultimo)
+        lezipeado=zip(listaDocumentos,listaNombres,listaObrasSociales)
+        return lezipeado
+    except Exception as e:
+        print e 
+        listaEr=["PAGINA NO DISPONIBLE"]
+        return listaEr
+    return listaDocumentos,listaNombres,listaObrasSociales
 def nombreSumar():
-	global nombreglobalsumar
-	return (nombreglobalsumar)
+    global nombreglobalsumar
+    return (nombreglobalsumar)
 def botPUCOSUMAR(documento):
     try:
         global nombreglobalsumar
@@ -565,7 +567,8 @@ def botPUCOSUMAR(documento):
             return False
         else:
             return True
-    except:
+    except Exception as e:
+        print e
         return "ERROR"
 #LE DAS UNA LISTA Y TE LO TRANSFORMA EN UN CSV 
 def convertirEnUna(masiva):
@@ -605,31 +608,31 @@ def listaDocus2018bis(hojaDocus):
         n+=1
     return listaDocus
 def botPUCO2018listaBis(lista):
-	listaLimpia=[]
-	acum=0
-	listaDoc=[]
-	listaNom=[]
-	listaOSES=[]
-	listaDoc1=[]
-	listaNom1=[]
-	listaOSES1=[]
-	registro1=""
-	registro2=""
-	nidea=""
-	listadocus=""
-	for elemento in lista:
-		listadocus+=filtroSoloNumeros(elemento)+" "
-		if acum%2500==0 and acum>1 or acum+1==len(lista):
-			niidea=botPUCO2018lista(listadocus.strip(" "),lista)
-			for a,b,c in niidea:
-				listaDoc.append(a)
-				listaNom.append(b)
-				listaOSES.append(c)
-			listadocus=""
-		acum+=1
-	acum=0
-	acum2=0
-	return filtroDeListongui(listaDoc,listaOSES,listaNom)
+    listaLimpia=[]
+    acum=0
+    listaDoc=[]
+    listaNom=[]
+    listaOSES=[]
+    listaDoc1=[]
+    listaNom1=[]
+    listaOSES1=[]
+    registro1=""
+    registro2=""
+    nidea=""
+    listadocus=""
+    for elemento in lista:
+        listadocus+=filtroSoloNumeros(elemento)+" "
+        if acum%2500==0 and acum>1 or acum+1==len(lista):
+            niidea=botPUCO2018lista(listadocus.strip(" "),lista)
+            for a,b,c in niidea:
+                listaDoc.append(a)
+                listaNom.append(b)
+                listaOSES.append(c)
+            listadocus=""
+        acum+=1
+    acum=0
+    acum2=0
+    return filtroDeListongui(listaDoc,listaOSES,listaNom)
 def filtroSoloNumeros(numero):
     acum=""
     if numero != None:
@@ -744,7 +747,6 @@ nombreglobal2=""
 nombreglobal3=""
 configPOS = configparser.ConfigParser()
 configPOS.sections()
-print os.path.dirname(os.path.abspath(__file__))+r'/configPOS.ini'
 configPOS.read(os.path.dirname(os.path.abspath(__file__))+r'/configPOS.ini')
 usuarioL=configPOS['Superintendencia']['Usuario']
 contraL=configPOS['Superintendencia']['Contra']
