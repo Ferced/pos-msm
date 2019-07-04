@@ -173,8 +173,6 @@ def chequearSPIN(documento,response):
             cadenita=""
     return OSSI2
 def chequearIOMA2018(documento):
-    return False
-def chequearIOMA2018nofunciona(documento):
     tiene=False
     #ESTE FOR ESTA PARA ITERAR SOBRE LOS SEXOS (1,2) ESTO SE HACE POR QUE PARA CONSULTAR A IOMA HAY QUE ELEGIR EL SEXO
     for item in range(1,3):
@@ -183,7 +181,7 @@ def chequearIOMA2018nofunciona(documento):
     return False
 def chequearIOMA2018bis(documento,sexo):
     #HACE UNA REQUEST A LA PAGINA DE IOMA CON LOS HEADERS EN LA VARIABLE 'DATA' DE ABAJO
-    data = urllib.urlencode({'T3':documento,'sexo':sexo,'B13':'Buscar'})
+    data = urllib.urlencode({' T3':documento,'sexo':sexo,'B13':'Buscar'})
     url=configPOS['Ioma']['Url']
     request = urllib2.Request(url,data)
     respuesta = urllib2.urlopen(request).read()
@@ -331,12 +329,15 @@ def tienePAMI(laStr, elemento1, elemento2):
         return True
     return False
 def chequearPAMI(documento):
+
     browser.open('http://institucional.pami.org.ar/result.php?c=6-2')
-    form=browser.select_form(nr=1)
+    form=browser.select_form(nr=0)
     browser.set_handle_robots( False )
     browser["nroDocumento"]=documento
     response =browser.submit()
+    print "asdasdsad"
     respuesta=response.read()
+    print respuesta
     return filtrarVomitoV2(respuesta)
 def filtrarVomito(vomito):
     url=""
@@ -724,11 +725,11 @@ def botPUCO2019(documento):
 #HACE UNA REQUEST Y DEVUELVE UN HTML
 #FILTRAR VOMITO TE PARSEA TODO ESE HTML Y TE DEVUELVE EL NOMBRE, DOCUMENTO,... Y MAS IMPORTANTE TE DEVUELVE UN LINK
 def chequearPAMI(documento):
-	url = 'https://prestadores.pami.org.ar/result.php?c=6-2-2'
-	data = urllib.urlencode({'tipoDocumento':'DNI','nro_doccumento':documento,'submit2':'Buscar'})
-	request = urllib2.Request(url,data)
-	respuesta = urllib2.urlopen(request).read()
-	return filtrarVomitoV2(respuesta)
+    url = 'https://prestadores.pami.org.ar/result.php?c=6-2-2'
+    data = urllib.urlencode({'tipoDocumento':'DNI','nroDocumento':int(documento),'submit2':'Buscar'})
+    request = urllib2.Request(url,data)
+    respuesta = urllib2.urlopen(request).read()
+    return filtrarVomitoV2(respuesta)
 #MAS TE VALE NO ROMPER NADA HIJO DE PUTA------------------
 global intentoListaDoc
 global browser
@@ -755,6 +756,7 @@ browser.set_handle_robots(False)
 #PROBAR BOTS DE OBRAS SOCIALES -------------------------------------------------------------------
 #print controlSPIN("40743779")
 #print botPUCO2019("40743779")
+#print chequearPAMI("11822431")
 #print botPUCOSUMAR("40743779")
-#print chequearIOMA2018('40743779')
+#print chequearIOMA2018('14172495')
 #PROBAR BOTS DE OBRAS SOCIALES -------------------------------------------------------------------
