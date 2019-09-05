@@ -506,6 +506,7 @@ def sacarEstosElementos(cadena,lista):
         cadena=cadena.strip(elemento)
     return cadena
 def botPUCO2018lista(listaDoc,listaReal):
+
     global intentoListaDoc
     global nombreglobal
     listaDocumentos=[]
@@ -514,11 +515,12 @@ def botPUCO2018lista(listaDoc,listaReal):
     par=0
     listaBan=[",",":"]
     nombreglobal = ""
-    data = urllib.urlencode({'documento':listaDoc,'tabla':'PUCO_2018-12'})
+    data = urllib.urlencode({'documento':listaDoc,'tabla':configPOS['Puco']['Tabla']})
     try:
         url = configPOS['Puco']['UrlPrincipal']
         request = urllib2.Request(url,data)
         respuesta = urllib2.urlopen(request).read()
+        print respuesta
         regex = r"\{(.*?)\"}"
         elDocumento=""
         esElDoc=False
@@ -606,9 +608,10 @@ def listaDocus2018bis(hojaDocus):
                 else:
                     contaNones=0
                     listaDocus.append(str(columna.value))
-        n+=1
+        n+=1   
     return listaDocus
 def botPUCO2018listaBis(lista):
+	
     listaLimpia=[]
     acum=0
     listaDoc=[]
@@ -645,7 +648,7 @@ def filtroSoloNumeros(numero):
 def listaDocus2018(archivo):
     hojaDocumentos=archivo.active
     listaTerminada=botPUCO2018listaBis(listaDocus2018bis(hojaDocumentos))
-    print type(listaTerminada)
+    print listaTerminada
     vacio=Workbook()
     hojaDocumentos=vacio.active
     n=1
@@ -754,9 +757,14 @@ contraL=configPOS['Superintendencia']['Contra']
 browser=Browser()
 browser.set_handle_robots(False)
 #PROBAR BOTS DE OBRAS SOCIALES -------------------------------------------------------------------
-#print controlSPIN("40743779")
-#print botPUCO2019("40743779")
-#print chequearPAMI("11822431")
-#print botPUCOSUMAR("40743779")
-#print chequearIOMA2018('14172495')
+# print (" SPIN: ")
+# print controlSPIN("40743779")
+# print (" PUCO: ")
+# print botPUCO2019("40743779")
+# print (" PAMI: ")
+# print chequearPAMI("11822431")
+# print (" PUCO SUMAR: ")
+# print botPUCOSUMAR("40743779")
+# print (" SPIN: ")
+# print chequearIOMA2018('14172495')
 #PROBAR BOTS DE OBRAS SOCIALES -------------------------------------------------------------------
