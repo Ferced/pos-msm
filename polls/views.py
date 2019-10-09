@@ -1,11 +1,9 @@
 #!/usr/bin/env python
 #-*- coding: cp850 -*-
-import logging
-import os
-logging.basicConfig(filename=os.path.abspath(os.path.dirname(__file__))+'/pos-logging.log', filemode='a', format='%(name)s - %(message)s - %(asctime)s')
 import codecs
 import openpyxl
 import base64
+import os
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -238,7 +236,6 @@ def waddup(request, pk):
     YOUR_OBJECT.objects.filter(pk=pk).update(views=F('views')+1)
     return HttpResponseRedirect(request.GET.get('next'))
 def upload_file(request):
-	logging.warning('se ejecuta upload_file')
 	if request.method == 'POST':
 		form = UploadFileForm(request.POST, request.FILES)
 		if form.is_valid():
@@ -251,20 +248,16 @@ def upload_file(request):
 def descargaExcel(request):
 	global rutaExcel
 	global nombreExcel
-	logging.warning('se ejecuta descargaExcel')
 	#return HttpResponse(rutaExcel)
 	try:
 		response = HttpResponse(open(rutaExcel,"rb").read())
-	except Exception as e:
+	except:
 		print rutaExcel
-		logging.warning('ERROR: '+str(e))
 		response = HttpResponse(open('/srv/http/pos/static/mediaPOS/'+nombreExcel, "rb").read())
 	response['Content-Type'] = 'mimetype/application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
 	response['Content-Disposition'] = 'attachment; filename='+nombreExcel
-	logging.warning('TERMINO DESCARGA EXCEL')
 	return response
 def simple_upload(request):
-	logging.warning('se ejecuto simple upload')
 	global rutaExcel
 	global nombreExcel
 	archivo=True
@@ -289,9 +282,8 @@ def simple_upload(request):
 	except Exception as e:
 		print e
 		archivo=False
-		logging.warning('ERROR : '+str(e))
-		return render(request, 'ConsultaLista.html',{'archivo_':archivo})
-	return render(request, 'ConsultaLista.html',{'archivo_':archivo})
+		return render(request, 'ConsultaLista.html',{'archivo_':archivo,'error':str(e)})
+	return render(request, 'ConsultaLista.html',{'archivo_':archivo,'error':False})
 global buscarMas
 global browser
 global usuarioL

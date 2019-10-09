@@ -62,10 +62,10 @@
     <div id="archivoSubido" class="row align-items-center justify-content-center" style="margin-top:20px; display: none;">
         <button type="submit" style="width: 195px;">Procesar archivo</button>
     </div>
-            {% if archivo_ != True %}
+            {% if error != False %}
         <p class="text-center" style="color: red;
                                       font-size: 1,6em;">
-        DEBE SELECCIONAR UN ARCHIVO EXCEL
+        ERROR: {{error}}
                                       </p>
         {% endif %}
     </form>
