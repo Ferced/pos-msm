@@ -2,7 +2,7 @@
 #-*- coding: cp850 -*-
 import logging
 import os
-logging.basicConfig(filename=os.path.abspath(os.path.dirname(__file__))+'pos-logging.log', filemode='a', format='%(name)s - %(message)s - %(asctime)s')
+logging.basicConfig(filename=os.path.abspath(os.path.dirname(__file__))+'/pos-logging.log', filemode='a', format='%(name)s - %(message)s - %(asctime)s')
 import codecs
 import openpyxl
 import base64
