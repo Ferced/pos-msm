@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 #-*- coding: cp850 -*-
 import logging
-logging.basicConfig(filename='/polls/pos-logging.log', filemode='a', format='%(name)s - %(message)s - %(asctime)s')
+import os
+logging.basicConfig(filename=os.path.abspath(os.path.dirname(__file__))+'pos-logging.log', filemode='a', format='%(name)s - %(message)s - %(asctime)s')
 import codecs
 import openpyxl
 import base64
-import os
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.shortcuts import render
