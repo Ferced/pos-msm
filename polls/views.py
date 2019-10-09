@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #-*- coding: cp850 -*-
 import logging
-logging.basicConfig(filename='pos-logging.log', filemode='a', format='%(name)s - %(message)s - %(asctime)s')
+logging.basicConfig(filename='/polls/pos-logging.log', filemode='a', format='%(name)s - %(message)s - %(asctime)s')
 import codecs
 import openpyxl
 import base64
