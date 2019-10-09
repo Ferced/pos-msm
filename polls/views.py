@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 #-*- coding: cp850 -*-
+import logging
+logging.basicConfig(filename='pos-logging.log', filemode='a', format='%(name)s - %(message)s - %(asctime)s')
 import codecs
 import openpyxl
 import base64
@@ -236,6 +238,7 @@ def waddup(request, pk):
     YOUR_OBJECT.objects.filter(pk=pk).update(views=F('views')+1)
     return HttpResponseRedirect(request.GET.get('next'))
 def upload_file(request):
+	logging.warning('se ejecuta upload_file')
 	if request.method == 'POST':
 		form = UploadFileForm(request.POST, request.FILES)
 		if form.is_valid():
@@ -248,16 +251,20 @@ def upload_file(request):
 def descargaExcel(request):
 	global rutaExcel
 	global nombreExcel
+	logging.warning('se ejecuta descargaExcel')
 	#return HttpResponse(rutaExcel)
 	try:
 		response = HttpResponse(open(rutaExcel,"rb").read())
-	except:
+	except Exception as e:
 		print rutaExcel
+		logging.warning('ERROR: '+e)
 		response = HttpResponse(open('/srv/http/pos/static/mediaPOS/'+nombreExcel, "rb").read())
 	response['Content-Type'] = 'mimetype/application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
 	response['Content-Disposition'] = 'attachment; filename='+nombreExcel
+	logging.warning('TERMINO DESCARGA EXCEL')
 	return response
 def simple_upload(request):
+	logging.warning('se ejecuto simple upload')
 	global rutaExcel
 	global nombreExcel
 	archivo=True
@@ -282,6 +289,7 @@ def simple_upload(request):
 	except Exception as e:
 		print e
 		archivo=False
+		logging.warning('ERROR : '+e)
 		return render(request, 'ConsultaLista.html',{'archivo_':archivo})
 	return render(request, 'ConsultaLista.html',{'archivo_':archivo})
 global buscarMas
