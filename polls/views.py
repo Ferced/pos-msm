@@ -257,7 +257,7 @@ def descargaExcel(request):
 		response = HttpResponse(open(rutaExcel,"rb").read())
 	except Exception as e:
 		print rutaExcel
-		logging.warning('ERROR: '+e)
+		logging.warning('ERROR: '+str(e))
 		response = HttpResponse(open('/srv/http/pos/static/mediaPOS/'+nombreExcel, "rb").read())
 	response['Content-Type'] = 'mimetype/application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
 	response['Content-Disposition'] = 'attachment; filename='+nombreExcel
@@ -289,7 +289,7 @@ def simple_upload(request):
 	except Exception as e:
 		print e
 		archivo=False
-		logging.warning('ERROR : '+e)
+		logging.warning('ERROR : '+str(e))
 		return render(request, 'ConsultaLista.html',{'archivo_':archivo})
 	return render(request, 'ConsultaLista.html',{'archivo_':archivo})
 global buscarMas
