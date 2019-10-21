@@ -35,7 +35,7 @@ cursor.execute('SELECT * FROM historial')
 data = cursor.fetchall()
 for elemento in data:
 	print " "
- 	print elemento
+ 	print elemento #testingui !
 
 # PASAR A UN EXCEL----------------------------------------------------------------------------------------
 # n=1
