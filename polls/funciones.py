@@ -369,6 +369,9 @@ def filtrarVomito(vomito):
     url="http://institucional.pami.org.ar/"+url
     return chequearArbolPami(url)
 def filtrarVomitoV2(vomito):
+    print vomito
+    print "stopeando..."
+    raw_input()
     global contaRAROS
     listaLinks=[]
     listaNom=[]
@@ -386,6 +389,9 @@ def filtrarVomitoV2(vomito):
     lista=["td"]
     cunta=0
     soup = BeautifulSoup(vomito,'html.parser')
+    print soup
+    print "stopeando..."
+    raw_input()
     for elemento in soup.findAll('p', attrs={'class': 'whitetxt'}):
         cunta+=1
         # print elemento.text
@@ -732,6 +738,9 @@ def chequearPAMI(documento):
     data = urllib.urlencode({'tipoDocumento':'DNI','nroDocumento':int(documento),'submit2':'Buscar'})
     request = urllib2.Request(url,data)
     respuesta = urllib2.urlopen(request).read()
+    print respuesta
+    print "stopeando..."
+    raw_input()
     return filtrarVomitoV2(respuesta)
 #MAS TE VALE NO ROMPER NADA HIJO DE PUTA------------------
 global intentoListaDoc
@@ -761,8 +770,8 @@ browser.set_handle_robots(False)
 # print controlSPIN("40743779")
 # print (" PUCO: ")
 # print botPUCO2019("40743779")
-# print (" PAMI: ")
-# print chequearPAMI("11822431")
+print (" PAMI: ")
+print chequearPAMI("11822431")
 # print (" PUCO SUMAR: ")
 # print botPUCOSUMAR("40743779")
 # print (" SPIN: ")
