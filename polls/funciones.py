@@ -429,18 +429,11 @@ def filtrarVomitoV2(vomito):
             listadoPami.append(zip(listado1,listado2,listado3))
         cuntaLE+=1
     cuntaLE=0
-    print listadoPami
-    print "stopeando..."
-    raw_input()
     return listadoPami
 #ESTA FUNCION TE DEVUELVE LAS 3 LISTAS DE PAMI
 def chequearArbolPami(url):
     headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
     r  = requests.get(url,headers=headers)
-    print url
-    print r
-    print "stopeando..."
-    print raw_input()
     listaDmodulo=[]
     listaRed=[]
     listaPrestador=[]
@@ -448,9 +441,6 @@ def chequearArbolPami(url):
     contaTabla=1
     data = r.text
     soup = BeautifulSoup(data,"html5lib")
-    print soup
-    print "stopeando..."
-    print raw_input()
     for link in soup.find_all('p'):
         # print(link.get('class'))
         if "<p>PRESTADOR:</p>" in str(link): 
