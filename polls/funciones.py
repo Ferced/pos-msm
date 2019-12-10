@@ -369,9 +369,6 @@ def filtrarVomito(vomito):
     url="http://institucional.pami.org.ar/"+url
     return chequearArbolPami(url)
 def filtrarVomitoV2(vomito):
-    print vomito
-    print "stopeando..."
-    raw_input()
     global contaRAROS
     listaLinks=[]
     listaNom=[]
@@ -428,11 +425,17 @@ def filtrarVomitoV2(vomito):
             print listaBaja[cuntaLE]
             print listaLinks[cuntaLE]
             url="http://institucional.pami.org.ar/"+listaLinks[cuntaLE]
+            print url
+            print "stopeando..."
+            raw_input()
             listado1,listado2,listado3= chequearArbolPami(url)
             listadoPami.append([listaDoc[cuntaLE],listaNom[cuntaLE]])
             listadoPami.append(zip(listado1,listado2,listado3))
         cuntaLE+=1
     cuntaLE=0
+    print listadoPami
+    print "stopeando..."
+    raw_input()
     return listadoPami
 #ESTA FUNCION TE DEVUELVE LAS 3 LISTAS DE PAMI
 def chequearArbolPami(url):
