@@ -386,9 +386,6 @@ def filtrarVomitoV2(vomito):
     lista=["td"]
     cunta=0
     soup = BeautifulSoup(vomito,'html.parser')
-    print soup
-    print "stopeando..."
-    raw_input()
     for elemento in soup.findAll('p', attrs={'class': 'whitetxt'}):
         cunta+=1
         # print elemento.text
@@ -403,6 +400,7 @@ def filtrarVomitoV2(vomito):
             # raw_input()
             cunta=0
     contaLetras=""
+
     for link in soup.findAll('a'):
         if link.string=="add":
             for elemento in str(link):
@@ -417,6 +415,7 @@ def filtrarVomitoV2(vomito):
     listado1=[]
     listado2=[]
     listado3=[]
+    print listaLinks
     for elemento in listaLinks:
         if len(listaBaja[cuntaLE]) < 2:
             print listaNom[cuntaLE]
@@ -425,9 +424,6 @@ def filtrarVomitoV2(vomito):
             print listaBaja[cuntaLE]
             print listaLinks[cuntaLE]
             url="http://institucional.pami.org.ar/"+listaLinks[cuntaLE]
-            print url
-            print "stopeando..."
-            raw_input()
             listado1,listado2,listado3= chequearArbolPami(url)
             listadoPami.append([listaDoc[cuntaLE],listaNom[cuntaLE]])
             listadoPami.append(zip(listado1,listado2,listado3))
@@ -440,6 +436,10 @@ def filtrarVomitoV2(vomito):
 #ESTA FUNCION TE DEVUELVE LAS 3 LISTAS DE PAMI
 def chequearArbolPami(url):
     r  = requests.get(url)
+    print url
+    print r
+    print "stopeando..."
+    print raw_input()
     listaDmodulo=[]
     listaRed=[]
     listaPrestador=[]
@@ -447,6 +447,9 @@ def chequearArbolPami(url):
     contaTabla=1
     data = r.text
     soup = BeautifulSoup(data,"html5lib")
+    print soup
+    print "stopeando..."
+    print raw_input()
     for link in soup.find_all('p'):
         # print(link.get('class'))
         if "<p>PRESTADOR:</p>" in str(link): 
@@ -741,9 +744,6 @@ def chequearPAMI(documento):
     data = urllib.urlencode({'tipoDocumento':'DNI','nroDocumento':int(documento),'submit2':'Buscar'})
     request = urllib2.Request(url,data)
     respuesta = urllib2.urlopen(request).read()
-    print respuesta
-    print "stopeando..."
-    raw_input()
     return filtrarVomitoV2(respuesta)
 #MAS TE VALE NO ROMPER NADA HIJO DE PUTA------------------
 global intentoListaDoc
