@@ -435,7 +435,8 @@ def filtrarVomitoV2(vomito):
     return listadoPami
 #ESTA FUNCION TE DEVUELVE LAS 3 LISTAS DE PAMI
 def chequearArbolPami(url):
-    r  = requests.get(url)
+    headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
+    r  = requests.get(url,headers=headers)
     print url
     print r
     print "stopeando..."
